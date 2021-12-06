@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> Страница с деревом </title>
+</head>
+<body>
+    {% load mptt_tags %}
+    <h1>Дерево</h1>
+    <ul>
+    {% recursetree nodes %}
+        <li>{{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul>
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+    </ul>
+</body>
+</html>
