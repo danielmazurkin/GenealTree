@@ -1,22 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title> Страница с деревом </title>
-</head>
-<body>
+{% extends 'common.html' %}
+
+{% block content %}
     {% load mptt_tags %}
-    <h1>Дерево</h1>
-    <ul>
-    {% recursetree nodes %}
-        <li>{{ node.name }}
-            {% if not node.is_leaf_node %}
-                <ul>
-                    {{ children }}
-                </ul>
-            {% endif %}
-        </li>
-    {% endrecursetree %}
-    </ul>
-</body>
-</html>
+    <h1>Древо</h1>
+    <div class="card">
+      <div class="card-body">
+          Надо открывать список чтобы посмотреть древо
+      </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <ul id="myUL">
+            {% recursetree nodes %}
+                <li><span class="caret">{{ node }} {% if node.sex == 'MALE' %} (м) {% elif node.sex == 'FEMALE' %} (ж) {% endif %}</span>
+                    {% if not node.is_leaf_node %}
+                        <ul class="nested">
+                            <li> <span class="caret">{{ children }} </span> </li>
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endrecursetree %}
+            </ul>
+        </div>
+    </div>
+
+        <script type="text/javascript">
+            var toggler = document.getElementsByClassName("caret");
+            var i;
+
+            for (i = 0; i < toggler.length; i++) {
+              toggler[i].addEventListener("click", function() {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+              });
+            }
+        </script>
+{% endblock %}
+

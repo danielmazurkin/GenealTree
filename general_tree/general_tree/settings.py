@@ -28,11 +28,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -43,13 +45,15 @@ INSTALLED_APPS = [
     'colorfield',
 
     # User Apps
-    'peoples',
     'core',
+    'peoples',
     'mptt',
+    'photos',
+    'bios',
 ]
 
 STATIC_ROOT = 'static'
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = 'media/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,7 +70,9 @@ ROOT_URLCONF = 'general_tree.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

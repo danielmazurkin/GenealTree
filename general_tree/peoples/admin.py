@@ -4,12 +4,6 @@ from mptt.admin import MPTTModelAdmin
 from .models import People
 from .models import PhotoPeople
 from .models import BioPeople
-from .models import RelativePeople
-
-
-class RelativePeopleInline(admin.StackedInline):
-    model = RelativePeople
-    extra = 1
 
 
 class PhotoInline(admin.StackedInline):
@@ -19,8 +13,8 @@ class PhotoInline(admin.StackedInline):
 
 @admin.register(People)
 class AdminPeople(MPTTModelAdmin):
-    list_display = ('first_name', 'last_name', 'surname')
-    inlines = [PhotoInline, RelativePeopleInline]
+    list_display = ('first_name', 'last_name', 'surname', 'sex', )
+    inlines = [PhotoInline, ]
 
 
 @admin.register(BioPeople)
@@ -32,10 +26,11 @@ class AdminBioPeople(admin.ModelAdmin):
 class AdminPhotoPeople(admin.ModelAdmin):
     list_display = ('people', 'photo_link')
     fields = ('people', 'image_tag', )
+    readonly_fields = ('people', 'image_tag',)
 
     def image_tag(self, obj):
         """Возвращаем картинку человека в админке."""
-        return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+        return mark_safe('<img src="{url}" width="200px" height="200px" />'.format(
             url=obj.photo_link.url,
             width=obj.photo_link.width,
             height=obj.photo_link.height,

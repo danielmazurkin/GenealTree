@@ -1,6 +1,6 @@
 from django.db import models
-from .enums import DegreeKinship
-from mptt.models import MPTTModel, TreeForeignKey
+from .enums import SexChoice
+from mptt.models import TreeForeignKey, MPTTModel
 
 
 class People(MPTTModel):
@@ -8,11 +8,10 @@ class People(MPTTModel):
 
     parent = TreeForeignKey(
         'self',
-        on_delete=models.CASCADE,
-        null=True,
         blank=True,
-        related_name='children',
-        verbose_name='Родитель этого человека'
+        null=True,
+        on_delete=models.CASCADE,
+        verbose_name='Родитель этого человека (связь)'
     )
 
     first_name = models.CharField(
@@ -44,6 +43,15 @@ class People(MPTTModel):
         null=True,
     )
 
+    sex = models.CharField(
+        verbose_name='Пол',
+        max_length=255,
+        choices=SexChoice.choices,
+        null=True,
+        blank=True,
+        default=SexChoice.NOT_UNDEFINED,
+    )
+
     def __str__(self):
         if not self.surname:
             return f'{self.last_name} {self.first_name}'
@@ -51,8 +59,8 @@ class People(MPTTModel):
             return f'{self.last_name} {self.first_name} {self.surname}'
 
     class Meta:
-        verbose_name = 'Человек'
-        verbose_name_plural = 'Люди'
+        verbose_name = 'Человек (связь)'
+        verbose_name_plural = 'Люди (связи)'
 
 
 class PhotoPeople(models.Model):
@@ -75,7 +83,7 @@ class PhotoPeople(models.Model):
 
     class Meta:
         verbose_name = 'Фотография человека'
-        verbose_name_plural = 'Фотографии людей'
+        verbose_name_plural = 'Фотография человека'
 
 
 class BioPeople(models.Model):
@@ -92,27 +100,9 @@ class BioPeople(models.Model):
         verbose_name='Биография'
     )
 
+    def __str__(self):
+        return f'{self.text_bio[0:100]}'
+
     class Meta:
         verbose_name = 'Биография человека'
         verbose_name_plural = 'Биографии людей'
-
-
-class RelativePeople(models.Model):
-    """Модель родственника."""
-
-    parent = models.ForeignKey(
-        People,
-        null=True,
-        on_delete=models.SET_NULL,
-        verbose_name='Для кого родственник'
-    )
-
-    degree_of_kinship = models.CharField(
-        max_length=50,
-        choices=DegreeKinship.choices,
-        verbose_name='Степень родства'
-    )
-
-    class Meta:
-        verbose_name = 'Родственник'
-        verbose_name_plural = 'Родственники'
