@@ -5,12 +5,15 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-suit = {file = "https://github.com/darklow/django-suit/tarball/v2"}
-django-admin-interface = "*"
 pillow = "*"
 django-modeladmin-reorder = "*"
-django-mptt = "*"
 django-rest-framework = "*"
+django-jazzmin = "*"
+python-decouple = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
+django-ckeditor = "*"
+django-image-uploader-widget = "*"
 
 [dev-packages]
 

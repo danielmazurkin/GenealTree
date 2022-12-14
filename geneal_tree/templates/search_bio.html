@@ -1,0 +1,28 @@
+{% extends 'common.html' %}
+{% block content %}
+    <div class="row">
+        <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Добро пожаловать в библиотеку биографий. </h4>
+              <p>Здесь вы можете изучить биографии родственников. </p>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+      {% for bio in bios_people %}
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{bio.pk}}" aria-expanded="true" aria-controls="collapseOne">
+              {{ bio.name }}
+            </button>
+          </h2>
+          <div id="collapseOne{{bio.pk}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample{{bio.pk}}">
+            <div class="accordion-body">
+              <strong>Биография: </strong>  {{ bio.text }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+
+{% endblock %}

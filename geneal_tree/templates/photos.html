@@ -1,0 +1,44 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+        <div class="row">
+            <div class="alert alert-success" role="alert">
+              <h4 class="alert-heading">Добро пожаловать в альбом! </h4>
+              <p>
+                  Здесь вы можете просмотреть фотографии людей из семейного древа. <br/>
+                  Кликните по фотографии, если хотите посмотреть ее более детально.
+              </p>
+              <hr>
+              <p> К фотографиям также прикреплено описание при его наличии. </p>
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+    <link rel="stylesheet" href="{% static 'peoples/image_thumbnail.css' %}">
+
+    <div class="container border p-1" id="gallery">
+        {% for image in images %}
+            {% if image.description %}
+                <a href="{{ image.photo_link.url }}" data-caption="{{ image.description }}">
+            {% else %}
+                <a href="{{ image.photo_link.url }}" data-caption="{{ image.description }}">
+            {% endif %}
+
+            <img src="{{ image.photo_link.url }}"/>
+        {% endfor %}
+
+    </div>
+
+    <script>
+      Fancybox.bind("#gallery a", {
+        groupAll : true, // Group all items
+        on : {
+          ready : (fancybox) => {
+            console.log(`fancybox #${fancybox.id} is ready!`);
+          }
+        }
+      });
+    </script>
+{% endblock %}

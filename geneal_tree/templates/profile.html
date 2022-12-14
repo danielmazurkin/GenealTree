@@ -1,0 +1,50 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+    <link rel="stylesheet" href="{% static 'peoples/profile.css' %}">
+    <script src="{%  static 'peoples/photo_album.js' %}"></script>
+
+    <div class="container border">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ avatar }}" alt="Avatar" class="avatar mt-2">
+            </div>
+            <div class="col-md-8">
+                <h3 class="mt-2"> {{ name_people }} </h3>
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="mt-2"> Фотографии </h3>
+        </div>
+        <div class="row mt-2" id="gallery">
+            {%  for photo in photos %}
+                    <a target="_blank" href="{{ photo }}">
+                        <img src="{{ photo }}" alt="Forest">
+                    </a>
+            {% endfor %}
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{bio.pk}}" aria-expanded="true" aria-controls="collapseOne">
+                              Просмотреть биографию
+                            </button>
+                          </h2>
+                          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample{{bio.pk}}">
+                            <div class="accordion-body">
+                              <strong>Биография: </strong> {{ biopeople }}
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        </div>
+
+
+{% endblock %}
