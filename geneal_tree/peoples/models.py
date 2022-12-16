@@ -1,6 +1,7 @@
 from django.db import models
 from .enums import SexChoice
-from ckeditor.fields import RichTextField
+from django.conf import settings
+from django.utils.safestring import mark_safe
 
 
 class People(models.Model):
@@ -77,29 +78,46 @@ class People(models.Model):
 
         return result
 
+    @property
+    def pk_marriage(self):
+        if getattr(self, 'marriage'):
+            return self.marriage.pk
+
+    @property
+    def pk_mother(self):
+        if getattr(self, 'mother'):
+            return self.mother.pk
+
+    @property
+    def pk_father(self):
+        if getattr(self, 'father'):
+            return self.father.pk
+
+    @property
+    def avatar_url(self):
+        if hasattr(self, 'avatarpeople'):
+            url_form = (f'{settings.SITE_URL}{self.avatarpeople.photo_link.url}'
+                        if hasattr(self.avatarpeople, 'photo_link') else None)
+            return url_form
+
+    @property
+    def photos_link(self):
+        list_from_photo = []
+        photos = self.photopeople_set.all()
+
+        for photo in photos:
+            list_from_photo.append(
+                f'{settings.SITE_URL}{str(photo.photo_link.url)}'
+            )
+
+        return list_from_photo
+
+    @property
+    def bio_people(self):
+        if hasattr(self, 'biopeople'):
+            return mark_safe(self.biopeople)
+
     class Meta:
         unique_together = ('mother', 'father', )
         verbose_name = 'Человек (+ связь)'
         verbose_name_plural = 'Люди ( + связи)'
-
-
-class BioPeople(models.Model):
-    """Модель которая описывает биографию человека."""
-
-    people = models.OneToOneField(
-        People,
-        on_delete=models.SET_NULL,
-        null=True,
-        verbose_name='Человек',
-    )
-
-    text_bio = RichTextField(
-        verbose_name='Биография'
-    )
-
-    def __str__(self):
-        return f'{self.text_bio[0:100]}'
-
-    class Meta:
-        verbose_name = 'Биография человека'
-        verbose_name_plural = 'Биографии людей'

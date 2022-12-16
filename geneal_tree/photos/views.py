@@ -1,19 +1,14 @@
 from django.views import View
-from photos.models import PhotoPeople
 from django.template.response import TemplateResponse
-from django.core.paginator import Paginator
+from photos.services import PhotoService
 
 
 class PhotoView(View):
     """Вью, который возвращает главную страницу."""
 
     def get(self, request):
-        """Получает основную страницу."""
-        photos = PhotoPeople.objects.all()
-
-        urls_images = []
-        for photo in photos:
-            urls_images.append(photo)
+        """Получает фотографии пользователя."""
+        urls_images = PhotoService.form_data()
 
         return TemplateResponse(
             request,

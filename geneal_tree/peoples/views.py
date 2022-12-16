@@ -5,10 +5,8 @@ from peoples.services import TreeService
 
 
 class TreeView(View):
-    greeting = "Good Day"
-
     def get(self, request):
-        result_dict_tree = TreeService.build_tree()
+        result_dict_tree = TreeService.form_data()
         return TemplateResponse(
             request,
             template='tree_template.html',

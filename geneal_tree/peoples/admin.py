@@ -1,6 +1,6 @@
 from django.contrib import admin
 from peoples.models import People
-from peoples.models import BioPeople
+from bios.models import BioPeople
 from django.conf import settings
 from django.utils.safestring import mark_safe
 

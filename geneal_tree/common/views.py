@@ -5,8 +5,6 @@ from django.template.response import TemplateResponse
 class CommonView(View):
     """Вью, который возвращает главную страницу."""
 
-    greeting = 'Common View'
-
     def get(self, request):
         """Получает основную страницу."""
         return TemplateResponse(
