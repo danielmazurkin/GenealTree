@@ -7,7 +7,7 @@ from profiles.services import ProfileService
 class ProfileView(TemplateView):
     template_name = "profile.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
 
         people = People.objects.filter(

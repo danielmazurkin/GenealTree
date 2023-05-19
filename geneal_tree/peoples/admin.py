@@ -11,7 +11,7 @@ class AdminPeople(admin.ModelAdmin):
     search_fields = ('people__first_name', 'people__last_name', 'people__surname', )
 
     @admin.display(description='Профиль человека')
-    def link_profile(self, obj):
+    def link_profile(self, obj) -> str:
         return mark_safe(
             f"<a href='{settings.SITE_URL}/profiles/profile/{obj.pk}'> Профиль человека </a>"
         )
@@ -20,6 +20,5 @@ class AdminPeople(admin.ModelAdmin):
 @admin.register(BioPeople)
 class AdminBioPeople(admin.ModelAdmin):
     search_fields = ('people__first_name', 'people__last_name', 'people__surname', )
-
     list_display = ('people', )
 

@@ -112,12 +112,9 @@ WSGI_APPLICATION = 'general_tree.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": config("SQL_ENGINE", default="django.db.backends.sqlite3"),
-        "NAME": config("POSTGRES_DB", default=config("NAME", "db.sqlite3")),
-        "USER": config("POSTGRES_USER", default="user"),
-        "PASSWORD": config("POSTGRES_PASSWORD", default="password"),
-        "HOST": config("POSTGRES_HOST", default="localhost"),
-        "PORT": config("POSTGRES_PORT", default=5432, cast=int),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",  # This is where you put the name of the db file.
+        # If one doesn't exist, it will be created at migration time.
     }
 }
 

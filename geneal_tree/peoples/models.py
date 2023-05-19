@@ -94,14 +94,14 @@ class People(models.Model):
             return self.father.pk
 
     @property
-    def avatar_url(self):
+    def avatar_url(self) -> str:
         if hasattr(self, 'avatarpeople'):
             url_form = (f'{settings.SITE_URL}{self.avatarpeople.photo_link.url}'
                         if hasattr(self.avatarpeople, 'photo_link') else None)
             return url_form
 
     @property
-    def photos_link(self):
+    def photos_link(self) -> list[str]:
         list_from_photo = []
         photos = self.photopeople_set.all()
 
@@ -113,7 +113,7 @@ class People(models.Model):
         return list_from_photo
 
     @property
-    def bio_people(self):
+    def bio_people(self) -> str:
         if hasattr(self, 'biopeople'):
             return mark_safe(self.biopeople)
 

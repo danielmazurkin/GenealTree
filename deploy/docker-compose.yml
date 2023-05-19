@@ -19,11 +19,11 @@ services:
       - media_volume:/usr/src/app/media/
       - static_volume:/usr/src/app/static/
     expose:
-      - 8000
+      - 8010
     env_file:
       - ./docker-compose.env
     ports:
-      - "8000:8000"
+      - "8010:8000"
     depends_on:
       - db
 

@@ -7,9 +7,11 @@ class BaseService(ABC):
     @staticmethod
     @abstractmethod
     def form_data():
+        """Используется для формирования данных."""
         ...
 
     @staticmethod
     @abstractmethod
     def form_data_for_context(context, name_model=None):
+        """Используется для формирования данных в контекст запроса."""
         ...
