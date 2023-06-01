@@ -5,7 +5,7 @@ from core.service import BaseService
 class TreeService(BaseService):
     """Сервисный слой для работы с деревом."""
     @staticmethod
-    def form_data() -> dict:
+    def form_data() -> list[dict]:
         """Формируем данные для построения дерева чтобы отдать на фронт."""
         # Пример данных:
         # nodes: источник данных.Свойство id является обязательным.

@@ -14,6 +14,7 @@ psycopg2-binary = "*"
 gunicorn = "*"
 django-ckeditor = "*"
 django-image-uploader-widget = "*"
+pika = "*"
 
 [dev-packages]
 

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'photos',
     'bios',
     'profiles',
+    'users',
 
     # Widget from pypi
     'image_uploader_widget',
@@ -177,3 +178,4 @@ LOCALE_PATHS = (
 )
 
 LANGUAGE_CODE = 'ru-ru'
+BROKER_URL = 'localhost'
