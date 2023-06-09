@@ -35,3 +35,26 @@ class AllowedUser(models.Model):
     class Meta:
         verbose_name = "Разрешенный пользователь"
         verbose_name_plural = "Разрешенные пользователи"
+
+
+class FriendLinkedTree(models.Model):
+    """Модель которая отражает ссылки на дружественные деревья, фотографии."""
+
+    user = models.ForeignKey(
+        User,
+        verbose_name="Дружественный пользователь",
+        on_delete=models.CASCADE,
+    )
+
+    user_linked = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='user_owners',
+    )
+
+    def __str__(self):
+        return f"Ссылки пользователя {self.user}"
+
+    class Meta:
+        verbose_name = "Дружественный пользователь"
+        verbose_name_plural = "Дружественные пользователи"
