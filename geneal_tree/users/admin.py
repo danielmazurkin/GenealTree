@@ -22,6 +22,7 @@ class AllowedUserAdmin(admin.ModelAdmin):
             FriendLinkedTree(
                 user=request.user,
                 user_linked=user,
+                allowed_user=obj,
             ).save()
 
         else:
@@ -39,7 +40,7 @@ class FriendLinkedTreeAdmin(admin.ModelAdmin):
     """Дружественные ссылки."""
 
     readonly_fields = ('user', 'link_photos', 'link_bio', 'link_tree')
-    exclude = 'user_linked',
+    exclude = ('user_linked', 'allowed_user')
 
     def has_add_permission(self, request):
         return False

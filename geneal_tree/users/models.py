@@ -52,6 +52,13 @@ class FriendLinkedTree(models.Model):
         related_name='user_owners',
     )
 
+    allowed_user = models.ForeignKey(
+        AllowedUser,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=False,
+    )
+
     def __str__(self):
         return f"Ссылки пользователя {self.user}"
 
