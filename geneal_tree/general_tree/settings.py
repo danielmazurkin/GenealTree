@@ -16,6 +16,7 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # User Apps
+    'common',
     'core',
     'peoples',
     'photos',
@@ -54,7 +56,9 @@ INSTALLED_APPS = [
     'users',
 
     # Widget from pypi
+    'crispy_bootstrap4',
     'image_uploader_widget',
+    'crispy_forms',
 ]
 
 MEDIA_ROOT = 'media/'

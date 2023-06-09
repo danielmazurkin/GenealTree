@@ -4,8 +4,9 @@ from core.service import BaseService
 
 class TreeService(BaseService):
     """Сервисный слой для работы с деревом."""
+
     @staticmethod
-    def form_data() -> list[dict]:
+    def form_data(pk_user: int) -> list[dict]:
         """Формируем данные для построения дерева чтобы отдать на фронт."""
         # Пример данных:
         # nodes: источник данных.Свойство id является обязательным.
@@ -21,7 +22,10 @@ class TreeService(BaseService):
         # ]
 
         nodes = []
-        people_set = People.objects.select_related('mother', 'marriage', 'father').all()
+
+        people_set = People.objects.filter(
+            owner_user__pk=pk_user
+        ).select_related('mother', 'marriage', 'father').all()
 
         for people in people_set:
             dict_info_people = {"id": people.pk}

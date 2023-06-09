@@ -7,11 +7,10 @@ class ServiceBiography(BaseService):
     """Отдельный сервис для работы с биографиями."""
 
     @staticmethod
-    def form_data() -> list[dict]:
+    def form_data(pk_user: int) -> list[dict]:
         """Сервис для формирования данных в биографию."""
-        bios_peoples = BioPeople.objects.select_related(
-            'people',
-        ).all()
+        bios_peoples = BioPeople.objects.filter(
+            owner_user__pk=pk_user).select_related('people').all()
 
         bios_peoples_end_text = []
 

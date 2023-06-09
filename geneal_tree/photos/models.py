@@ -1,6 +1,7 @@
 from django.db import models
 from peoples.models import People
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
 
 
 class PhotoPeople(models.Model):
@@ -22,6 +23,13 @@ class PhotoPeople(models.Model):
         verbose_name='Описание фотографии',
         null=True,
         blank=True,
+    )
+
+    owner_user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
     )
 
     def __str__(self):
@@ -46,6 +54,13 @@ class AvatarPeople(models.Model):
         People,
         verbose_name='Человек',
         on_delete=models.SET_NULL,
+        null=True,
+    )
+
+    owner_user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        default=None,
         null=True,
     )
 

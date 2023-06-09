@@ -1,6 +1,8 @@
 from django.db import models
 from peoples.models import People
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
+from django.utils.html import format_html
 
 
 class BioPeople(models.Model):
@@ -17,8 +19,15 @@ class BioPeople(models.Model):
         verbose_name='Биография'
     )
 
+    owner_user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+    )
+
     def __str__(self):
-        return f'{self.text_bio[0:100]}'
+        return format_html(f'{self.text_bio[0:100]}')
 
     class Meta:
         verbose_name = 'Биография человека'

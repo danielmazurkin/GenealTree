@@ -1,5 +1,9 @@
 {% extends 'common.html' %}
 {% block content %}
+
+    {%  if not error_access %}
+
+
     <div class="row">
         <div class="alert alert-success" role="alert">
               <h4 class="alert-heading">Добро пожаловать в библиотеку биографий. </h4>
@@ -24,5 +28,12 @@
       {% endfor %}
     </div>
 
+    {% else %}
+        <div class="row">
+                <div class="alert alert-error" role="alert">
+                  <h4 class="alert-heading"> У вас нет доступа к биографиям. </h4>
+                </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

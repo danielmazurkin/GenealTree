@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls.static import static
 from django.conf import settings
+from users.views import UserView
 
 
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     path('photo/', include('photos.urls'), name='photo'),
     path('bio/', include('bios.urls'), name='bio'),
     path('profiles/', include('profiles.urls'), name='profile'),
+    path('register/', UserView.as_view(), name='user'),
 ]
 
 from django.conf.urls.static import static

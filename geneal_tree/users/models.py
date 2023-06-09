@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 
 class AllowedUser(models.Model):
@@ -9,6 +11,22 @@ class AllowedUser(models.Model):
         verbose_name="Логин пользователя",
         null=True,
         blank=True,
+    )
+
+    user_linked = models.ForeignKey(
+        User,
+        verbose_name="Пользователь",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='user_linked'
+    )
+
+    owner_user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
     )
 
     def __str__(self):

@@ -7,8 +7,8 @@ class PhotoService(BaseService):
     """Сервис для работы с Фото."""
 
     @staticmethod
-    def form_data() -> list[str]:
-        photos = PhotoPeople.objects.all()
+    def form_data(pk_user: int) -> list[str]:
+        photos = PhotoPeople.objects.filter(owner_user__pk=pk_user)
 
         urls_images: List[PhotoPeople] = []
         for photo in photos:

@@ -2,13 +2,21 @@
 {% block content %}
     {% load static %}
 
-    <script src="{% static "peoples/familytree.js" %}">
-    </script>
-    <h1>Древо</h1>
-    <div style="width:100%; height:700px;" id="tree"/>
-    <script>
-        var result_dict_tree = JSON.parse('{{ result_dict_tree|escapejs}}');
-        var family = new FamilyTree(document.getElementById("tree"), result_dict_tree);
-    </script>
+    {% if not error_access %}
+        <script src="{% static "peoples/familytree.js" %}">
+        </script>
+        <h1>Древо</h1>
+        <div style="width:100%; height:700px;" id="tree"/>
+        <script>
+            var result_dict_tree = JSON.parse('{{ result_dict_tree|escapejs}}');
+            var family = new FamilyTree(document.getElementById("tree"), result_dict_tree);
+        </script>
+    {% else %}
+        <div class="row">
+                <div class="alert alert-error" role="alert">
+                  <h4 class="alert-heading"> У вас нет доступа к древу. </h4>
+                </div>
+        </div>
+    {% endif %}
 {% endblock %}
 

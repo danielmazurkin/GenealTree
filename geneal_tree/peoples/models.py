@@ -2,6 +2,8 @@ from django.db import models
 from .enums import SexChoice
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from django.contrib.auth.models import User
+
 
 
 class People(models.Model):
@@ -68,6 +70,13 @@ class People(models.Model):
         verbose_name='Пол',
         max_length=255,
         choices=SexChoice.choices,
+    )
+
+    owner_user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
     )
 
     def __str__(self):

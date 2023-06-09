@@ -3,5 +3,5 @@ from django.urls import re_path
 
 
 urlpatterns = [
-    re_path(r'', PhotoView.as_view(), name='photo'),
+    re_path(r'(?P<pk>\d+)/$', PhotoView.as_view(), name='photo'),
 ]
