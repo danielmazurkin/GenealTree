@@ -37,6 +37,12 @@ class AvatarPeopleAdmin(admin.ModelAdmin):
     fields = ('people', 'photo_link', )
     form = ImageUploaderWidgetForm
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        """Переопределяем данные в выпадающем списке внешнего ключа."""
+        if db_field.name == "people":
+            kwargs["queryset"] = People.objects.filter(owner_user=request.user)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
     def save_model(self, request, obj, form, change):
         """Переопределение сохранения модели для создания многопользовательского режима."""
         obj.owner_user = request.user
