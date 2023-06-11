@@ -1,23 +1,18 @@
 from django.views.generic import View
 from django.template.response import TemplateResponse
 from bios.services import ServiceBiography
-from django.db.models import Q
-from users.models import AllowedUser
+from common.right_access_decorator import check_right_access
 
 
 class BioPeopleView(View):
     """Вью, который возвращает биографии."""
 
-    def get(self, request, pk):
+    @check_right_access
+    def get(self, request, pk, *args, **kwargs):
         """Получает основную страницу c биографиями."""
         context_data = {}
 
-        is_allow_bio = AllowedUser.objects.filter(
-            Q(user_linked__pk=request.user.pk) |
-            Q(owner_user=request.user)
-        ).exists()
-
-        if is_allow_bio or int(pk) == request.user.pk:
+        if kwargs['has_access'] or int(pk) == request.user.pk:
             bios_peoples_end_text = ServiceBiography.form_data(pk_user=int(pk))
             context_data['message_for_user'] = 'Нажмите на имя чтобы узнать биографию человека'
             context_data['bios_people'] = bios_peoples_end_text

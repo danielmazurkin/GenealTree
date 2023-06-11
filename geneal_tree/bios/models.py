@@ -19,7 +19,7 @@ class BioPeople(models.Model):
         verbose_name='Биография'
     )
 
-    owner_user = models.OneToOneField(
+    owner_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,

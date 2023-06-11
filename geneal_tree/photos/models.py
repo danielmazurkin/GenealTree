@@ -25,7 +25,7 @@ class PhotoPeople(models.Model):
         blank=True,
     )
 
-    owner_user = models.OneToOneField(
+    owner_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,
@@ -57,7 +57,7 @@ class AvatarPeople(models.Model):
         null=True,
     )
 
-    owner_user = models.OneToOneField(
+    owner_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,

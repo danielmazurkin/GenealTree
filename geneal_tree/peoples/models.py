@@ -72,7 +72,7 @@ class People(models.Model):
         choices=SexChoice.choices,
     )
 
-    owner_user = models.OneToOneField(
+    owner_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,

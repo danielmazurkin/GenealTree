@@ -18,7 +18,6 @@ class UserView(View):
             context={"register_form": form}
         )
 
-
     def post(self, request):
         """Регистрирует пользователя, сразу делая его администратором."""
         form = NewUserForm(request.POST)

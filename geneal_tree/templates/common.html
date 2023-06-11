@@ -58,11 +58,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'tree' request.user.pk %}">
-                  Посмотреть древо
-              </a>
-            </li>
+            {% if request.user.pk %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'tree' request.user.pk %}">
+                      Посмотреть древо
+                  </a>
+                </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'photo' request.user.pk %}">
                   Фотографии людей
@@ -78,6 +79,7 @@
                       Перейти в панель администратора
                   </a>
              </li>
+            {% endif %}
           </ul>
         </div>
       </div>

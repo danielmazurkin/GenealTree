@@ -1,23 +1,18 @@
 from django.views import View
 from django.template.response import TemplateResponse
 from photos.services import PhotoService
-from users.models import AllowedUser
-from django.db.models import Q
+from common.right_access_decorator import check_right_access
 
 
 class PhotoView(View):
     """Вью, который возвращает главную страницу."""
 
-    def get(self, request, pk):
+    @check_right_access
+    def get(self, request, pk, *args, **kwargs):
         """Получает фотографии пользователя."""
         context_data = {}
 
-        is_allow_photo = AllowedUser.objects.filter(
-            Q(user_linked__pk=request.user.pk) |
-            Q(owner_user=request.user)
-        ).exists()
-
-        if is_allow_photo or int(pk) == request.user.pk:
+        if kwargs['has_access'] or int(pk) == request.user.pk:
             urls_images = PhotoService.form_data(pk_user=int(pk))
             context_data['images'] = urls_images
         else:

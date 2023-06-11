@@ -22,11 +22,12 @@ class AllowedUser(models.Model):
         related_name='user_linked'
     )
 
-    owner_user = models.OneToOneField(
+    owner_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         default=None,
         null=True,
+        unique=False,
     )
 
     def __str__(self):
