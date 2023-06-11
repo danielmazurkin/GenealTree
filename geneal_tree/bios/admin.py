@@ -1,10 +1,10 @@
 from django.contrib import admin
 from bios.models import BioPeople
-from peoples.models import People
+from common.people_admin_mixin import PeopleAdminMixin
 
 
 @admin.register(BioPeople)
-class AdminBioPeople(admin.ModelAdmin):
+class AdminBioPeople(PeopleAdminMixin, admin.ModelAdmin):
     search_fields = ('people__first_name', 'people__last_name', 'people__surname', )
     list_display = ('people', )
     exclude = ('owner_user', )
@@ -18,9 +18,3 @@ class AdminBioPeople(admin.ModelAdmin):
         """Переопределяем метод чтобы администратору отображались только его данные."""
         qs = super().get_queryset(request)
         return qs.filter(owner_user=request.user)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        """Переопределяем данные в выпадающем списке внешнего ключа."""
-        if db_field.name == "people":
-            kwargs["queryset"] = People.objects.filter(owner_user=request.user)
-        return super().formfield_for_foreignkey(db_field, request, **kwargs)
