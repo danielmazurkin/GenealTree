@@ -9,12 +9,14 @@ def check_right_access(func):
     def wrap(self, *args, **kwargs):
 
         try:
+
             request = args[0]
             is_allow_bio = AllowedUser.objects.filter(
                 Q(user_linked__pk=request.user.pk) |
                 Q(owner_user=request.user)
             ).exists()
             kwargs['has_access'] = is_allow_bio
+
         except (TypeError, IndexError):
             kwargs['has_access'] = False
 
