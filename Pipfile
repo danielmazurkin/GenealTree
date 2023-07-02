@@ -17,6 +17,7 @@ django-image-uploader-widget = "*"
 pika = "*"
 django-crispy-forms = "*"
 crispy-bootstrap4 = "*"
+celery = "*"
 
 [dev-packages]
 

@@ -20,12 +20,13 @@ from users.views import UserView
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('tree/', include('peoples.urls'), name='tree'),
     path('menu/', include('common.urls'), name='menu'),
     path('photo/', include('photos.urls'), name='photo'),
     path('bio/', include('bios.urls'), name='bio'),
     path('profiles/', include('profiles.urls'), name='profile'),
+    path('users/', include('users.urls'), name='users_token'),
     path('register/', UserView.as_view(), name='user'),
 ]
 

@@ -27,6 +27,24 @@ services:
     depends_on:
       - db
 
+  celery-default:
+    expose:
+      - "8000"
+    depends_on:
+      - admin
+      - db
+    command: celery -A geneal_tree.celery
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
 volumes:
   postgres_data_family_tree:
   media_volume:
