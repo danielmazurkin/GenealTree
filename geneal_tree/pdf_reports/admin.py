@@ -28,4 +28,4 @@ class TaskPDFReportAdmin(admin.ModelAdmin):
         obj.save()
 
         with SenderToServicePDF(priority=10) as conn:
-            conn.send_data('test sending..')
+            conn.send_data(obj.forming_data_for_pdf_report())
